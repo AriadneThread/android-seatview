@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:buttonStyle">@style/Widget.ButtonStyle</item>
+    </style>
+
+    <style name="Widget.ButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+</resources>

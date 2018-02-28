@@ -1,0 +1,125 @@
+{
+  "seats": [
+    {
+      "graphCol": 12,
+      "hallId": "5",
+      "seatNo": "1024_5_1_15_12",
+      "seatPieceNo": "1",
+      "graphRow": 16,
+      "seatCol": "12",
+      "seatRow": "15",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 11,
+      "hallId": "5",
+      "seatNo": "1024_5_1_15_11",
+      "seatPieceNo": "1",
+      "graphRow": 16,
+      "seatCol": "11",
+      "seatRow": "15",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 12,
+      "hallId": "5",
+      "seatNo": "1024_5_1_10_8",
+      "seatPieceNo": "1",
+      "graphRow": 11,
+      "seatCol": "8",
+      "seatRow": "10",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 11,
+      "hallId": "5",
+      "seatNo": "1024_5_1_10_7",
+      "seatPieceNo": "1",
+      "graphRow": 11,
+      "seatCol": "7",
+      "seatRow": "10",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 12,
+      "hallId": "5",
+      "seatNo": "1024_5_1_9_8",
+      "seatPieceNo": "1",
+      "graphRow": 10,
+      "seatCol": "8",
+      "seatRow": "9",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 11,
+      "hallId": "5",
+      "seatNo": "1024_5_1_9_7",
+      "seatPieceNo": "1",
+      "graphRow": 10,
+      "seatCol": "7",
+      "seatRow": "9",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 12,
+      "hallId": "5",
+      "seatNo": "1024_5_1_8_8",
+      "seatPieceNo": "1",
+      "graphRow": 9,
+      "seatCol": "8",
+      "seatRow": "8",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 12,
+      "hallId": "5",
+      "seatNo": "1024_5_1_7_8",
+      "seatPieceNo": "1",
+      "graphRow": 8,
+      "seatCol": "8",
+      "seatRow": "7",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 11,
+      "hallId": "5",
+      "seatNo": "1024_5_1_7_7",
+      "seatPieceNo": "1",
+      "graphRow": 8,
+      "seatCol": "7",
+      "seatRow": "7",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 12,
+      "hallId": "5",
+      "seatNo": "1024_5_1_6_8",
+      "seatPieceNo": "1",
+      "graphRow": 7,
+      "seatCol": "8",
+      "seatRow": "6",
+      "seatState": 1,
+      "seatType": 0
+    },
+    {
+      "graphCol": 11,
+      "hallId": "5",
+      "seatNo": "1024_5_1_6_7",
+      "seatPieceNo": "1",
+      "graphRow": 7,
+      "seatCol": "7",
+      "seatRow": "6",
+      "seatState": 1,
+      "seatType": 0
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.kokozu.widget.seatview.SeatView
+            android:id="@+id/seat_view"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="#e0e0e0"
+            app:seat_centerLineColor="#ff0000"
+            app:seat_centerLineWidth="2dp"
+            app:seat_checkRegularWhilePickSeat="false"
+            app:seat_drawableLoverLeftNormal="@drawable/ic_seat_lover_normal_l"
+            app:seat_drawableLoverLeftSelected="@drawable/ic_seat_lover_selected_l"
+            app:seat_drawableLoverLeftSold="@drawable/ic_seat_lover_locked_l"
+            app:seat_drawableLoverRightNormal="@drawable/ic_seat_lover_normal_r"
+            app:seat_drawableLoverRightSelected="@drawable/ic_seat_lover_selected_r"
+            app:seat_drawableLoverRightSold="@drawable/ic_seat_lover_locked_r"
+            app:seat_drawableNormal="@drawable/ic_seat_available"
+            app:seat_drawableSelected="@drawable/ic_seat_selected"
+            app:seat_drawableSold="@drawable/ic_seat_booked"
+            app:seat_maxSelectedCount="5"
+            app:seat_seatNoLeftMargin="10dp"
+            app:seat_seatNoTextColor="#00ffff"
+            app:seat_seatNoTextSize="12dp"
+            app:seat_seatNoTopMargin="10dp"
+            app:seat_seatNoWidth="20dp"
+            app:seat_showSeatNo="true" />
+
+        <com.kokozu.widget.seatview.SeatThumbnailView
+            android:id="@+id/thumbnail_view"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            app:seat_drawableLoverLeftNormal="@drawable/ic_seat_lover_normal_l"
+            app:seat_drawableLoverLeftSelected="@drawable/ic_seat_lover_selected_l"
+            app:seat_drawableLoverLeftSold="@drawable/ic_seat_lover_locked_l"
+            app:seat_drawableLoverRightNormal="@drawable/ic_seat_lover_normal_r"
+            app:seat_drawableLoverRightSelected="@drawable/ic_seat_lover_selected_r"
+            app:seat_drawableLoverRightSold="@drawable/ic_seat_lover_locked_r"
+            app:seat_drawableNormal="@drawable/ic_seat_available"
+            app:seat_drawableSelected="@drawable/ic_seat_selected"
+            app:seat_drawableSold="@drawable/ic_seat_booked"
+            app:seat_thumbnailBackground="@drawable/seat_thumbnail_background"
+            app:seat_thumbnailRangeLineColor="#ff0000"
+            app:seat_thumbnailRangeLineWidth="1dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="推荐 1" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="推荐 2" />
+
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="推荐 3" />
+
+        <Button
+            android:id="@+id/btn4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="推荐 4" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否有空座" />
+
+</LinearLayout>
