@@ -2,6 +2,8 @@
 
 **最低版本支持：API Level 16**
 
+[![](https://www.jitpack.io/v/AriadneThread/android-seatview.svg)](https://www.jitpack.io/#AriadneThread/android-seatview)
+
 ## Dependencies
 
 ```
