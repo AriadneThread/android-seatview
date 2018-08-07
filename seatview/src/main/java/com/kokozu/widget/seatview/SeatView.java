@@ -39,27 +39,44 @@ public class SeatView extends View {
 
     private static final String TAG = "kkz.widget.SeatView";
 
-    private static final int DEFAULT_MAX_SELECTED_COUNT = 4; // 默认可选的最大数量
-    private static final float MAX_SCALE_UP_RANGE_TOP = 1.f; // 缩放的最大值
+    /**
+     * 判断手指移动的最小距离
+     */
+    private static final int RANGE_TOUCH_MOVE_OFFSET = 10;
+
+    /**
+     * 判断手指移动的最小时间间隔
+     */
+    private static final int RANGE_TOUCH_MOVE_INTERVAL = 50;
+
+    /**
+     * 默认可选的最大数量
+     */
+    private static final int DEFAULT_MAX_SELECTED_COUNT = 4;
+
+    /**
+     * 缩放的最大值
+     */
+    private static final float MAX_SCALE_UP_RANGE_TOP = 1.f;
 
     public static final int STATE_NONE = 0;
     public static final int STATE_LOADING = 1;
     public static final int STATE_COMPLETED = 2;
 
-    @SeatState private int mSeatState = STATE_NONE;
+    @SeatState
+    private int mSeatState = STATE_NONE;
 
     private float mInitFingersDis = 1f;
     private float mInitScale = 1f;
     private float mScale = 1f;
     private float mLatestScale;
-    private float mMinScale; // 座位图缩放的最小值
+    private float mMinScale;
 
     private float mCurrentX, mCurrentY;
     private float mDrawStartX, mDrawStartY;
     private int mMaxRow, mMaxCol;
     private int mMaxSelectedCount;
 
-    // 座位各种状态的图片
     private Drawable mSeatNormal;
     private Drawable mSeatSold;
     private Drawable mSeatSelected;
@@ -70,7 +87,6 @@ public class SeatView extends View {
     private Drawable mSeatLoverSelectedL;
     private Drawable mSeatLoverSelectedR;
 
-    // 座位的数据
     private List<SeatData> mSelectedSeats = new ArrayList<>(6);
     private List<SeatData> mSoldSeats = new ArrayList<>(50);
     private Map<String, SeatData> mSeatData = new HashMap<>(50);
@@ -84,20 +100,28 @@ public class SeatView extends View {
     private boolean isCheckRegularWhilePickSeat;
     private boolean isCheckRegularWhileRecommend;
 
-    // 座位图中轴线
+    /**
+     * 座位图中轴线
+     */
     private boolean mShowCenterLine;
     private CenterLinePainter mCenterLinePainter;
 
-    // 画座位号
+    /**
+     * 画座位号
+     */
     private boolean mShowSeatNo;
     private String[] mSeatNo;
     private SeatNoPainter mSeatNoPainter;
 
-    // 座位缩略图
+    /**
+     * 座位缩略图
+     */
     private SeatThumbnailView mSeatThumbnailView;
     private RectF mScreenSeatRect = new RectF();
 
-    // 推荐座位
+    /**
+     * 推荐座位
+     */
     private BestSeatFinder mBestSeatFinder;
 
     public SeatView(Context context) {
@@ -180,22 +204,19 @@ public class SeatView extends View {
     @Override
     public void invalidate() {
         super.invalidate();
-
         updateThumbnailView();
     }
 
     @Override
     public void postInvalidate() {
         super.postInvalidate();
+        post(new Runnable() {
 
-        post(
-                new Runnable() {
-
-                    @Override
-                    public void run() {
-                        updateThumbnailView();
-                    }
-                });
+            @Override
+            public void run() {
+                updateThumbnailView();
+            }
+        });
     }
 
     @Override
@@ -455,7 +476,7 @@ public class SeatView extends View {
             mInitFingersDis = spacing(event);
             mInitScale = mScale;
             mLatestScale = mScale;
-            if (mInitFingersDis > 10f) {
+            if (mInitFingersDis > RANGE_TOUCH_MOVE_OFFSET) {
                 mTouchMode = ZOOM;
             }
         }
@@ -501,7 +522,8 @@ public class SeatView extends View {
             seat.unSelectSeat();
             mSelectedSeats.remove(seat);
 
-            if (seat.isLoverSeat()) { // 情侣座
+            // 情侣座
+            if (seat.isLoverSeat()) {
                 unSelectLoverSeat(seat);
             }
             isMatchRegular = checkSeatRegular(seat, false);
@@ -518,7 +540,8 @@ public class SeatView extends View {
             seat.selectSeat();
             mSelectedSeats.add(seat);
 
-            if (seat.isLoverSeat()) { // 情侣座
+            // 情侣座
+            if (seat.isLoverSeat()) {
                 isMatchRegular = selectLoverSeat(seat);
             } else { // 非情侣座
                 isMatchRegular = checkSeatRegular(seat, true);
@@ -535,7 +558,7 @@ public class SeatView extends View {
     }
 
     private void performMoveEvent(MotionEvent event) {
-        if (SystemClock.uptimeMillis() - mTouchDownTime < 50) {
+        if (SystemClock.uptimeMillis() - mTouchDownTime < RANGE_TOUCH_MOVE_INTERVAL) {
             return;
         }
 
@@ -550,9 +573,11 @@ public class SeatView extends View {
         final float x = event.getX();
         final float y = event.getY();
 
-        if (!isMoveMode
-                && ((Math.abs(x - mTouchDownPoint.x) > 10
-                        || Math.abs(y - mTouchDownPoint.y) > 10))) {
+        final float offsetX = Math.abs(x - mTouchDownPoint.x);
+        final float offsetY = Math.abs(y - mTouchDownPoint.y);
+        final boolean offsetOverRange = offsetX > 10 || offsetY > 10;
+
+        if (!isMoveMode && offsetOverRange) {
             isMoveMode = true;
         }
 
@@ -567,11 +592,11 @@ public class SeatView extends View {
 
     private void performZoomSeat(MotionEvent event) {
         float newDist = spacing(event);
-        if (newDist < 10) {
+        if (newDist < RANGE_TOUCH_MOVE_OFFSET) {
             return;
         }
 
-        if (newDist > 10f) {
+        if (newDist > RANGE_TOUCH_MOVE_OFFSET) {
             mScale = newDist / mInitFingersDis * mInitScale;
             limitScaleRange();
 
@@ -590,7 +615,8 @@ public class SeatView extends View {
     }
 
     private boolean checkSeatRegular(SeatData seat, boolean selectSeat) {
-        if (isCheckRegularWhilePickSeat) { // 选座时校验选座规则
+        // 选座时校验选座规则
+        if (isCheckRegularWhilePickSeat) {
             // 该座位不符合选座规则
             if (!isSelectedSeatLegal()) {
                 if (selectSeat) {
@@ -687,8 +713,10 @@ public class SeatView extends View {
         mCurrentY = mCurrentY - (mSeatHeight * (row - 0.5f) * (mScale - lastScale));
 
         final float newSeatHeight = mSeatHeight * mScale;
-        float topY = mCurrentY + newSeatHeight * (row - 1); // 点击行的顶点y坐标
-        float bottomY = topY + newSeatHeight; // 点击行的底部y坐标
+        // 点击行的顶点y坐标
+        float topY = mCurrentY + newSeatHeight * (row - 1);
+        // 点击行的底部y坐标
+        float bottomY = topY + newSeatHeight;
         final int factorY = 0;
         if (topY < factorY) {
             mCurrentY = factorY - newSeatHeight * (row - 1);
@@ -698,8 +726,10 @@ public class SeatView extends View {
         }
 
         final float newSeatWidth = mSeatWidth * mScale;
-        float leftX = mCurrentX + newSeatWidth * (col - 1); // 点击列的左点x坐标
-        float rightX = leftX + newSeatWidth; // 点击列右边的x坐标
+        // 点击列的左点x坐标
+        float leftX = mCurrentX + newSeatWidth * (col - 1);
+        // 点击列右边的x坐标
+        float rightX = leftX + newSeatWidth;
         final int factorX = 0;
         if (leftX < factorX) {
             mCurrentX = factorX - newSeatWidth * (col - 1);
@@ -729,11 +759,14 @@ public class SeatView extends View {
         mSoldSeats.addAll(seats);
         mBestSeatFinder.setSoldSeats(seats);
 
-        if (!Utils.isEmpty(mSelectedSeats)) { // 判断选中座位是否已售
-            boolean needUpdateSelected = false; // 更新已选中座位图
+        // 判断选中座位是否已售
+        if (!Utils.isEmpty(mSelectedSeats)) {
+            // 更新已选中座位图
+            boolean needUpdateSelected = false;
             for (SeatData seat : mSelectedSeats) {
                 SeatData data = mSeatData.get(seat.seatKey());
-                if (data != null && data.state == SeatData.STATE_SOLD) { // 已售
+                // 已售
+                if (data != null && data.state == SeatData.STATE_SOLD) {
                     needUpdateSelected = true;
                 }
             }
@@ -822,7 +855,8 @@ public class SeatView extends View {
 
         if (mMaxRow > 0 && rowMap.size() > 0) {
             mSeatNo = new String[mMaxRow];
-            int seatNo = 1; // 座位排号
+            // 座位排号
+            int seatNo = 1;
             for (int i = 1; i <= mMaxRow; i++) {
                 int count = rowMap.get(i, 0);
                 mSeatNo[i - 1] = count > 0 ? String.valueOf(seatNo) : "";
@@ -929,7 +963,9 @@ public class SeatView extends View {
         return mSoldSeats;
     }
 
-    /** 清除所有已选的座位。 */
+    /**
+     * 清除所有已选的座位。
+     */
     public void removeAllSelectedSeats() {
         if (!Utils.isEmpty(mSelectedSeats)) {
             for (SeatData seat : mSelectedSeats) {
@@ -950,7 +986,8 @@ public class SeatView extends View {
             return;
         }
 
-        if (seat.isLoverSeat()) { // 情侣座
+        // 情侣座
+        if (seat.isLoverSeat()) {
             seat.unSelectSeat();
             int graphRow = seat.point.x;
             int graphCol = seat.point.y + (seat.isLoverLeftSeat() ? 1 : -1);
@@ -971,7 +1008,9 @@ public class SeatView extends View {
         invalidate();
     }
 
-    /** 清空座位数据。 */
+    /**
+     * 清空座位数据。
+     */
     public void clearSeatData() {
         mSeatData.clear();
         mSoldSeats.clear();
@@ -1062,5 +1101,6 @@ public class SeatView extends View {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STATE_NONE, STATE_LOADING, STATE_COMPLETED})
-    public @interface SeatState {}
+    public @interface SeatState {
+    }
 }

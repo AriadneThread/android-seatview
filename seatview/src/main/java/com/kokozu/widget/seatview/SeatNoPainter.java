@@ -20,8 +20,15 @@ class SeatNoPainter {
 
     private static final int BACKGROUND_COLOR_DEFAULT = Color.parseColor("#4C000000");
 
-    private Paint mSeatNoPaint = new Paint(); //画座位号
-    private RectF mSeatNoRectF = new RectF(); //画座位号背景
+    /**
+     * 画座位号
+     */
+    private Paint mSeatNoPaint = new Paint();
+
+    /**
+     * 画座位号背景
+     */
+    private RectF mSeatNoRectF = new RectF();
 
     private int mSeatNoWidth;
     private int mSeatNoTopMargin;
@@ -31,8 +38,8 @@ class SeatNoPainter {
 
     private Context mContext;
 
-    SeatNoPainter(
-            Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    SeatNoPainter(Context context, @Nullable AttributeSet attrs,
+                  int defStyleAttr, int defStyleRes) {
         this.mContext = context;
         TypedArray a =
                 context.obtainStyledAttributes(

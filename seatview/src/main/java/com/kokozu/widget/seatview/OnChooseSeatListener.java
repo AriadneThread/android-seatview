@@ -24,7 +24,9 @@ public interface OnChooseSeatListener {
      */
     void onSelectedSeatOverMaxCount(int maxSelectCount);
 
-    /** 选择座位时不符合选座的规则。 */
+    /**
+     * 选择座位时不符合选座的规则。
+     */
     void onSelectSeatNotMatchRegular();
 
     /**
@@ -34,6 +36,8 @@ public interface OnChooseSeatListener {
      */
     void onSelectedSeatChanged(List<SeatData> selectedSeats);
 
-    /** 选中的座位已被售出的监听事件。 */
+    /**
+     * 选中的座位已被售出的监听事件。
+     */
     void onSelectedSeatSold();
 }

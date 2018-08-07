@@ -22,8 +22,8 @@ class CenterLinePainter {
     private Paint mCenterLinePaint = new Paint();
     private float[] dashLine = new float[2];
 
-    CenterLinePainter(
-            Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    CenterLinePainter(Context context, @Nullable AttributeSet attrs,
+                      int defStyleAttr, int defStyleRes) {
         final int defLineWidth = Utils.dp2px(context, DEFAULT_CENTER_LINE_WIDTH_DP);
 
         TypedArray a =

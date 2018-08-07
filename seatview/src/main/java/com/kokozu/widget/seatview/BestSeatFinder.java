@@ -18,11 +18,25 @@ class BestSeatFinder {
 
     private int mMaxRow, mMaxCol;
 
-    private SeatData[][] mSeatArray; // 座位图数组
+    /**
+     * 座位数组
+     */
+    private SeatData[][] mSeatArray;
 
-    private List<SeatData> mSeats = new ArrayList<>(); // 厅图
-    private List<SeatData> mSoldSeats = new ArrayList<>(); // 已售座位图
-    private List<Point> mPoints = new ArrayList<>(); // 用于定位
+    /**
+     * 影厅座位图
+     */
+    private List<SeatData> mSeats = new ArrayList<>();
+
+    /**
+     * 已售座位图
+     */
+    private List<SeatData> mSoldSeats = new ArrayList<>();
+
+    /**
+     * 用于定位
+     */
+    private List<Point> mPoints = new ArrayList<>();
 
     private SparseArray<List<List<SeatData>>> mIgnoreSeats = new SparseArray<>();
 
@@ -47,7 +61,8 @@ class BestSeatFinder {
         mMaxCol = maxCol;
 
         if (maxRow > 0 && maxCol > 0) {
-            mSeatArray = new SeatData[maxRow + 1][maxCol + 1]; // 初始化座位数组
+            // 初始化座位数组
+            mSeatArray = new SeatData[maxRow + 1][maxCol + 1];
             mPoints.clear();
             for (SeatData seat : mSeats) {
                 int row = seat.point.x;
@@ -82,7 +97,8 @@ class BestSeatFinder {
     List<SeatData> selectedRecommendSeat(int recommendCount) {
         List<SeatData> bestSeat = new ArrayList<>();
         if (mSeatArray != null) {
-            for (int i = 0; i < mPoints.size(); i++) { // 查找最佳座位
+            // 查找最佳座位
+            for (int i = 0; i < mPoints.size(); i++) {
                 Point point = mPoints.get(i);
                 SeatData seat = mSeatArray[point.y][point.x];
                 if (seat == null || seat.state == SeatData.STATE_SOLD) {
@@ -149,10 +165,12 @@ class BestSeatFinder {
             }
             // 情侣座的情况
             if (hasLover) {
-                if (recommendCount % 2 != 0) { // 不是2的倍数
+                // 不是2的倍数
+                if (recommendCount % 2 != 0) {
                     available = false;
                 } else {
-                    if (!selectedSeat.get(0).isLoverLeftSeat()) { // 第一个座位不是left
+                    // 第一个座位不是left
+                    if (!selectedSeat.get(0).isLoverLeftSeat()) {
                         available = false;
                     }
                 }
@@ -186,7 +204,9 @@ class BestSeatFinder {
         mIgnoreSeats.put(recommendCount, seats);
     }
 
-    /** 用于查找推荐座位 */
+    /**
+     * 用于查找推荐座位
+     */
     private class PointComparator implements Comparator<Point> {
 
         private Point point;
@@ -201,11 +221,14 @@ class BestSeatFinder {
             int ly = Math.abs(point.y - lhs.y);
             int rx = Math.abs(point.x - rhs.x);
             int ry = Math.abs(point.y - rhs.y);
-            int result = Double.compare(sqrt(lx, ly), sqrt(rx, ry)); // 点之间的距离排序
+
+            // 点之间的距离排序
+            int result = Double.compare(sqrt(lx, ly), sqrt(rx, ry));
             if (result == 0) {
                 int dX = lx - rx;
                 int dY = ly - ry;
-                if (dX < dY) { // 距离小的排前面
+                // 距离小的排前面
+                if (dX < dY) {
                     return -1;
                 } else {
                     if (dX == 0) {

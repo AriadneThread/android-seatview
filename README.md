@@ -4,10 +4,12 @@
 
 [![](https://www.jitpack.io/v/AriadneThread/android-seatview.svg)](https://www.jitpack.io/#AriadneThread/android-seatview)
 
+[示例][1]
+
 ## Dependencies
 
 ```
-compile 'com.android.support:support-annotations:26.+' // support annotations
+compile 'com.android.support:support-annotations:27.1.1' // support annotations
 ```
 
 ## Usage
@@ -105,4 +107,5 @@ compile 'com.android.support:support-annotations:26.+' // support annotations
 
 `com.kokozu.widget.seatview.SeatThumbnailView`
 
+[1]:https://openproject.oss-cn-beijing.aliyuncs.com/images/android/seat_view_1.png?x-oss-process=style/image_scale1
 

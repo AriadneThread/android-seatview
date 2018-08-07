@@ -33,7 +33,9 @@ public class SeatThumbnailView extends View {
     private static final int AUTO_HIDE_DELAY = 3000;
     private static final int CENTER_LINE_COLOR_DEFAULT = Color.parseColor("#666666");
 
-    // 座位不同状态的图片
+    /*
+     * 座位不同状态的图片
+     */
     private Drawable mSeatNormal;
     private Drawable mSeatSold;
     private Drawable mSeatSelected;
@@ -47,10 +49,20 @@ public class SeatThumbnailView extends View {
     private boolean isAutoHide;
     private Drawable mThumbnailBackground;
 
-    // 座位的数据列表
-    private Map<String, SeatData> mSeatData = new HashMap<>(); // 所有的座位，key：Seat.seatKey()
-    private List<SeatData> mSelectedSeats = new ArrayList<>(6); // 所有已选的座位
-    private List<SeatData> mSoldSeats = new ArrayList<>(); // 所有已售的座位
+    /**
+     * 所有的座位，key：Seat.seatKey()
+     */
+    private Map<String, SeatData> mSeatData = new HashMap<>();
+
+    /**
+     * 已选的座位
+     */
+    private List<SeatData> mSelectedSeats = new ArrayList<>(6);
+
+    /**
+     * 已售的座位
+     */
+    private List<SeatData> mSoldSeats = new ArrayList<>();
 
     private int mMaxRow, mMaxCol;
     private int mHeight;
@@ -188,7 +200,8 @@ public class SeatThumbnailView extends View {
             // 画座位
             drawSeat(canvas, seat, left, top, right, bottom);
 
-            if (mShowCenterLine && col == centerSeatX) { // 中心线
+            // 中心线
+            if (mShowCenterLine && col == centerSeatX) {
                 drawCenterLine(canvas, right + 2, mDrawRect.top, mDrawRect.height());
             }
         }
@@ -361,13 +374,15 @@ public class SeatThumbnailView extends View {
         }
 
         // 判断选中座位是否已售
-        boolean needUpdateSelected = false; // 更新已选中座位图
+        // 更新已选中座位图
+        boolean needUpdateSelected = false;
         Iterator<SeatData> iterator = mSelectedSeats.iterator();
         while (iterator.hasNext()) {
             SeatData seat = iterator.next();
             SeatData data = mSeatData.get(seat.seatKey());
             if (data != null) {
-                if (data.state == SeatData.STATE_SOLD) { // 已售
+                // 已售
+                if (data.state == SeatData.STATE_SOLD) {
                     needUpdateSelected = true;
                 }
                 if (needUpdateSelected) {

@@ -16,32 +16,52 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class SeatData implements Parcelable {
 
-    /** 可选的座位。 */
+    /**
+     * 可选的座位。
+     */
     public static final int STATE_NORMAL = 0;
 
-    /** 已售出的座位。 */
+    /**
+     * 已售出的座位。
+     */
     public static final int STATE_SOLD = 1;
 
-    /** 选中的座位。 */
+    /**
+     * 选中的座位。
+     */
     public static final int STATE_SELECTED = 2;
 
-    /** 普通座位。 */
+    /**
+     * 普通座位。
+     */
     public static final int TYPE_NORMAL = 0;
 
-    /** 情侣座左边的座位。 */
+    /**
+     * 情侣座左边的座位。
+     */
     public static final int TYPE_LOVER_LEFT = 1;
 
-    /** 情侣座右边的座位。 */
+    /**
+     * 情侣座右边的座位。
+     */
     public static final int TYPE_LOVER_RIGHT = 2;
 
-    /** 座位的坐标。 */
+    /**
+     * 座位的坐标。
+     */
     public Point point;
 
-    /** 座位的状态。 */
-    @SeatState public int state;
+    /**
+     * 座位的状态。
+     */
+    @SeatState
+    public int state;
 
-    /** 座位的类型。 */
-    @SeatType public int type;
+    /**
+     * 座位的类型。
+     */
+    @SeatType
+    public int type;
 
     public String seatRow;
 
@@ -112,11 +132,13 @@ public class SeatData implements Parcelable {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STATE_NORMAL, STATE_SOLD, STATE_SELECTED})
-    public @interface SeatState {}
+    public @interface SeatState {
+    }
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({TYPE_NORMAL, TYPE_LOVER_LEFT, TYPE_LOVER_RIGHT})
-    public @interface SeatType {}
+    public @interface SeatType {
+    }
 
     @Override
     public int describeContents() {
@@ -135,7 +157,8 @@ public class SeatData implements Parcelable {
         dest.writeString(this.extra);
     }
 
-    public SeatData() {}
+    public SeatData() {
+    }
 
     protected SeatData(Parcel in) {
         this.point = in.readParcelable(Point.class.getClassLoader());
@@ -164,16 +187,24 @@ public class SeatData implements Parcelable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SeatData seatData = (SeatData) o;
 
-        if (point != null ? !point.equals(seatData.point) : seatData.point != null) return false;
-        if (seatRow != null ? !seatRow.equals(seatData.seatRow) : seatData.seatRow != null)
+        if (point != null ? !point.equals(seatData.point) : seatData.point != null) {
             return false;
-        if (seatCol != null ? !seatCol.equals(seatData.seatCol) : seatData.seatCol != null)
+        }
+        if (seatRow != null ? !seatRow.equals(seatData.seatRow) : seatData.seatRow != null) {
             return false;
+        }
+        if (seatCol != null ? !seatCol.equals(seatData.seatCol) : seatData.seatCol != null) {
+            return false;
+        }
         return seatNo != null ? seatNo.equals(seatData.seatNo) : seatData.seatNo == null;
     }
 

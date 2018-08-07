@@ -16,11 +16,10 @@ import java.util.Collection;
 final class Utils {
 
     static int dp2px(@NonNull Context context, float dpValue) {
-        float value =
-                TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        dpValue,
-                        context.getResources().getDisplayMetrics());
+        float value = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dpValue,
+                context.getResources().getDisplayMetrics());
         return (int) (value + 0.5f);
     }
 
