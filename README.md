@@ -4,7 +4,7 @@
 
 [![](https://www.jitpack.io/v/AriadneThread/android-seatview.svg)](https://www.jitpack.io/#AriadneThread/android-seatview)
 
-[示例][1]
+![示例][1]
 
 ## Dependencies
 
